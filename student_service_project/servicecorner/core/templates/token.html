@@ -1,0 +1,123 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Digital Token Booking | Quick Desk</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background: linear-gradient(135deg,#fce5cd,#ead1dc,#d9ead3);
+    padding:30px;
+    text-align:center;
+}
+
+h1 {
+    color:#355f4e;
+    margin-bottom:10px;
+    font-size:36px;
+}
+
+p.quote {
+    font-style:italic;
+    color:#555;
+    margin-bottom:50px;
+    font-size:18px;
+}
+
+.buttons-container {
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:30px;
+}
+
+.button-card {
+    background:#fff;
+    padding:35px 30px;
+    border-radius:30px;
+    width:270px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.button-card:hover {
+    transform:translateY(-8px) scale(1.06);
+    background:#fce5cd;
+}
+
+.button-card h3 {
+    color:#355f4e;
+    margin-bottom:10px;
+    font-size:22px;
+}
+
+.button-card p {
+    font-size:15px;
+    color:#555;
+    line-height:1.6;
+    margin-bottom:20px;
+}
+
+.button-card a {
+    display:inline-block;
+    padding:12px 25px;
+    background:linear-gradient(135deg,#355f4e,#f4cccc);
+    color:#fff;
+    text-decoration:none;
+    border-radius:25px;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.button-card a:hover {
+    transform:scale(1.05);
+}
+</style>
+</head>
+
+<body>
+
+<h1>📌 Book Your Token</h1>
+<p class="quote">"Smart students save time. Book your token digitally."</p>
+
+<div class="buttons-container">
+
+    <!-- General Service -->
+    <div class="button-card">
+        <h3>🧾 General Service</h3>
+        <p>
+            For general queries, document verification, letters,
+            certificates, and basic administrative support.
+        </p>
+        <a href="{% url 'token_booking' section_id=1 %}">Book Now</a>
+    </div>
+
+    <!-- Fees Service -->
+    <div class="button-card">
+        <h3>💳 Fees Service</h3>
+        <p>
+            Related to fee payment issues, receipts, refunds,
+            scholarships, and financial clarifications.
+        </p>
+        <a href="{% url 'token_booking' section_id=2 %}">Book Now</a>
+    </div>
+
+    <!-- Student Service -->
+    <div class="button-card">
+        <h3>🎓 Student Service</h3>
+        <p>
+            Academic concerns, ID cards, exam queries,
+            enrollment support, and student-related services.
+        </p>
+        <a href="{% url 'token_booking' section_id=3 %}">Book Now</a>
+    </div>
+
+</div>
+
+</body>
+</html>
