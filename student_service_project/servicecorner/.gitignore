@@ -1,4 +1,4 @@
-
+venv/git rm -r --cached ../venv/
 .env
 db.sqlite3
 __pycache__/
