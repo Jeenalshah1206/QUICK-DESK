@@ -195,5 +195,5 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 # # Images kahan save hongi (Folder ka naam)
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
