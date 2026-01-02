@@ -64,5 +64,9 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - {self.rating}⭐"
+    
+class StudentProfile(models.Model):
+    name = models.CharField(max_length=100)
+    profile_pic = models.ImageField(upload_to='profiles/') # Ye 'media/profiles/' mein jayega    
 
 
