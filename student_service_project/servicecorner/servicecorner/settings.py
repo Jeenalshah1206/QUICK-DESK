@@ -4,24 +4,26 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Credentials from .env
+# Credentials
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-fallback-key")
 
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEPLOYMENT FIX: Live server par debug False hona chahiye
-DEBUG = os.getenv("DEBUG", "False") == "True"
+# FIX 1: DEBUG ko True rakho jab tak site chal na jaye
+DEBUG = True 
 
-# DEPLOYMENT FIX: Apne domain ka naam yahan add karein (e.g. 'servicecorner.onrender.com')
-ALLOWED_HOSTS = ['quick-desk-app.onrender.com', '127.0.0.1', 'localhost','.onrender.com']
+# FIX 2: Sahi URL add karo (Jo aapke Render logs mein dikh raha hai)
+ALLOWED_HOSTS = [
+    'quick-desk-3t3k.onrender.com', 
+    'quick-desk-app.onrender.com', 
+    '.onrender.com', 
+    'localhost', 
+    '127.0.0.1'
+]
 
-
-# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -29,19 +31,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',   # Required for allauth
-
+    'django.contrib.sites',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-
     'core',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware', # Static files handling for deployment
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -71,7 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'servicecorner.wsgi.application'
 
-# Database
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -79,7 +78,6 @@ DATABASES = {
     }
 }
 
-# Authentication
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
@@ -87,7 +85,6 @@ AUTHENTICATION_BACKENDS = (
 
 SITE_ID = 1 
 
-# Google OAuth Settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APPS': [
@@ -103,33 +100,27 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-# Account Behavior
 SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
-SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
-SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGOUT_REDIRECT_URL = 'home'
 
-# Static & Media files
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # For deployment
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+
+# FIX 3: Static storage fix for WhiteNoise
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# --- DEPLOYMENT SECURITY & HTTPS FIX ---
-# Google mismatch error hatane ke liye ye sabse zaroori hai
 if not DEBUG:
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
-    ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
-# ---------------------------------------
