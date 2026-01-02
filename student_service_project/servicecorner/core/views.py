@@ -153,7 +153,7 @@ def feedback_view(request):
 
 
 # Contact Page
-@login_required(login_url='login')
+#@login_required(login_url='login')
 def contact(request):
     return render(request, 'contact.html')
 
