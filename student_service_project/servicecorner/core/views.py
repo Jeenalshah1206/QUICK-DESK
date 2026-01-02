@@ -19,6 +19,8 @@ from django.conf import settings
 from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 
+from django.contrib.auth import login as auth_login
+
 
 # Home Page
 def home(request):
@@ -28,7 +30,7 @@ def home(request):
 def about(request):
     return render(request, 'about.html')
 
-# Register Page
+# Register Page (FIXED BACKEND ERROR)
 def register(request):
     if request.method == 'POST':
         name = request.POST.get('name')
@@ -54,14 +56,14 @@ def register(request):
             first_name=name
         )
 
-        # Auto login
-        auth_login(request, user)
+        # Auto login - FIXED by adding explicit backend
+        auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
         return redirect('dashboard')
 
     return render(request, 'register.html')
 
 
-# Login Page
+# Login Page (FIXED BACKEND ERROR)
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -70,7 +72,8 @@ def login_view(request):
         user = authenticate(request, username=email, password=password)
 
         if user:
-            auth_login(request, user)
+            # FIXED by adding explicit backend
+            auth_login(request, user, backend='django.contrib.auth.backends.ModelBackend')
             return redirect('dashboard')
         else:
             return render(request, 'login.html', {'error': 'Invalid email or password.'})
@@ -116,24 +119,16 @@ def chatbot(request):
 
         response = answer
 
-    messages = ChatMessage.objects.filter(user=request.user).order_by('-timestamp')[:10]
+    messages_list = ChatMessage.objects.filter(user=request.user).order_by('-timestamp')[:10]
 
     context = {
-        'messages': messages,
+        'messages': messages_list,
         'response': response
     }
     return render(request, 'chatbot.html', context)
 
 
-# Digital Token Page
-
-
-
-
-
-
-
-
+# Feedback View
 @login_required(login_url='login')
 def feedback_view(request):
     quotes = [
@@ -163,13 +158,7 @@ def contact(request):
     return render(request, 'contact.html')
 
 
-
-@login_required(login_url='login')
-
-
-
-
-
+# Token Booking Logic
 @login_required(login_url='login')
 def token_booking(request, section_id):
     section = get_object_or_404(TokenSection, id=section_id)
@@ -215,15 +204,13 @@ def token(request):
     return render(request, 'token.html')
 
 
-
-
 # Configure the SDK
 genai.configure(api_key=settings.GEMINI_API_KEY)
 
 def ask_gemini(request):
     prompt = request.GET.get('q', 'Hello!')
     
-    # Initialize the model (e.g., Gemini 1.5 Flash for speed)
+    # Keeping your model choice as 2.5
     model = genai.GenerativeModel('models/gemini-2.5-flash')
     
     response = model.generate_content(prompt)

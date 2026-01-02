@@ -84,7 +84,10 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-SITE_ID = 1 
+# settings.py
+# Agar migrate ke baad bhi error aaye toh hi ye add karna
+if 'django.contrib.sites' in INSTALLED_APPS:
+    SITE_ID = 1
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
