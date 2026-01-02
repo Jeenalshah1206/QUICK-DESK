@@ -87,7 +87,7 @@ AUTHENTICATION_BACKENDS = (
 # settings.py
 # Agar migrate ke baad bhi error aaye toh hi ye add karna
 if 'django.contrib.sites' in INSTALLED_APPS:
-    SITE_ID = 1
+    SITE_ID = 3
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
