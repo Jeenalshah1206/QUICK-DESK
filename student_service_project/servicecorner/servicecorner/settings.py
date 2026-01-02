@@ -18,7 +18,7 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY")
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
 # DEPLOYMENT FIX: Apne domain ka naam yahan add karein (e.g. 'servicecorner.onrender.com')
-ALLOWED_HOSTS = ['quick-desk-app.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['quick-desk-app.onrender.com', '127.0.0.1', 'localhost','.onrender.com']
 
 
 # Application definition
