@@ -10,7 +10,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = os.getenv("GOOGLE_CLIENT_SECRET")
-SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-fallback-key")
+# settings.py mein ye line aisi honi chahiye
+SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "django-insecure-default-key-for-now")
 
 # FIX 1: DEBUG ko True rakho jab tak site chal na jaye
 DEBUG = True 
