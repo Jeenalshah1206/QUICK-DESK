@@ -1,116 +1,102 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Token Confirmation | Quick Desk{% endblock %}
+{% block title %}Token Confirmed | Quick Desk{% endblock %}
 
 {% block extra_head %}
 <style>
-    .token-page-wrapper {
-        min-height: 100vh;
-        background: linear-gradient(135deg,#9dceec,#d197d2,#481a58);
-        padding: 40px 20px;
-        margin: -40px; /* Offset base.html main padding */
-        text-align: center;
+    .confirm-wrapper { 
+        background: linear-gradient(135deg,#9dceec,#d197d2,#481a58); 
+        flex: 1; padding: 50px 20px; text-align: center; 
     }
+    
+    .success-msg { color: white; font-size: 28px; margin-bottom: 30px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
 
-    .success-header {
-        color: white;
-        font-size: 32px;
-        margin-bottom: 30px;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .booking-card {
+    .ticket {
         display: inline-block;
-        background: #fff;
+        background: white;
         padding: 40px;
-        border-radius: 25px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        text-align: left;
-        max-width: 450px;
+        border-radius: 20px;
         width: 100%;
-        box-sizing: border-box;
-        border-top: 8px solid #355f4e; /* Ticket-like accent */
+        max-width: 400px;
         position: relative;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        text-align: left;
+        border-top: 10px solid #355f4e;
     }
 
-    /* Ticket "punch hole" effect */
-    .booking-card::before, .booking-card::after {
+    /* Ticket side cut-outs */
+    .ticket::before, .ticket::after {
         content: '';
         position: absolute;
         width: 30px;
         height: 30px;
-        background: #d197d2; /* Matches the gradient background */
+        background: #d197d2; /* Matches page background */
         border-radius: 50%;
         top: 50%;
         transform: translateY(-50%);
     }
-    .booking-card::before { left: -15px; }
-    .booking-card::after { right: -15px; }
+    .ticket::before { left: -15px; }
+    .ticket::after { right: -15px; }
 
-    .booking-card p {
-        font-size: 18px;
-        margin: 15px 0;
-        color: #555;
-        border-bottom: 1px dashed #eee;
-        padding-bottom: 10px;
+    .ticket h2 { text-align: center; color: #355f4e; margin-top: 0; }
+    
+    .token-num {
+        display: block;
+        font-size: 60px;
+        font-weight: 800;
+        color: #d6336c;
+        text-align: center;
+        margin: 20px 0;
+    }
+
+    .details p {
+        border-bottom: 1px dashed #ddd;
+        padding: 10px 0;
+        margin: 0;
         display: flex;
         justify-content: space-between;
+        color: #555;
     }
 
-    .booking-card span {
-        font-weight: 700;
-        color: #355f4e;
-    }
+    .details span { font-weight: 600; color: #333; }
 
-    .token-number {
-        font-size: 48px !important;
-        display: block !important;
-        text-align: center;
-        color: #d6336c !important;
-        margin: 10px 0;
-    }
-
-    .validity {
-        margin-top: 25px;
-        font-weight: 600;
-        color: #ffffff;
-        background: rgba(0,0,0,0.2);
+    .validity-note { margin-top: 25px; color: #f0f0f0; font-style: italic; font-size: 14px; }
+    
+    .btn-dash {
         display: inline-block;
-        padding: 8px 20px;
-        border-radius: 20px;
-    }
-
-    .btn-home {
-        display: block;
         margin-top: 30px;
         color: white;
         text-decoration: none;
         font-weight: bold;
+        border: 2px solid white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        transition: 0.3s;
     }
+    .btn-dash:hover { background: white; color: #481a58; }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="token-page-wrapper">
-    <h1 class="success-header">✅ Booking Confirmed!</h1>
+<div class="confirm-wrapper">
+    <div class="success-msg">✅ Booking Successful!</div>
 
-    <div class="booking-card">
-        <p>Service: <span>{{ section.name }}</span></p>
-        <p>Email: <span>{{ user_booking.user.email }}</span></p>
+    <div class="ticket">
+        <h2>YOUR TOKEN</h2>
         
-        <div style="text-align: center; margin: 20px 0;">
-            <small style="color: #888; text-transform: uppercase;">Your Token Number</small>
-            <span class="token-number">{{ user_booking.token_number }}</span>
-        </div>
+        <span class="token-num">{{ user_booking.token_number }}</span>
 
-        <p>Now Serving: <span>#{{ section.current_token }}</span></p>
-        <p>Est. Wait Time: <span>{{ expected_time }} mins</span></p>
+        <div class="details">
+            <p>Service: <span>{{ section.name }}</span></p>
+            <p>Now Serving: <span>#{{ section.current_token }}</span></p>
+            <p>Est. Wait: <span>{{ expected_time }} mins</span></p>
+            <p>User: <span>{{ user_booking.user.email|truncatechars:20 }}</span></p>
+        </div>
     </div>
 
-    <br>
-    <p class="validity">⚠️ This token is valid only for today.</p>
+    <p class="validity-note">⚠️ This token is valid for today only. Please take a screenshot.</p>
     
-    <a href="{% url 'dashboard' %}" class="btn-home">&larr; Back to Dashboard</a>
+    <a href="{% url 'dashboard' %}" class="btn-dash">&larr; Back to Dashboard</a>
 </div>
 {% endblock %}

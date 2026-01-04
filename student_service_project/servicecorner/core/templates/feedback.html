@@ -1,141 +1,34 @@
 {% extends 'base.html' %}
-{% load static %}
-
-{% block title %}Feedback | Quick Desk{% endblock %}
 
 {% block extra_head %}
 <style>
-    .feedback-page-wrapper {
-        min-height: 100vh;
-        background: linear-gradient(135deg,#9dceec,#d197d2,#481a58);
-        padding: 40px 20px;
-        margin: -40px; /* Offset base.html main padding */
-        text-align: center;
-    }
-
-    .feedback-card {
-        max-width: 550px;
-        margin: auto;
-        background: #fff;
-        padding: 40px;
-        border-radius: 35px;
-        box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    }
-
-    .feedback-card h2 {
-        color: #355f4e;
-        margin-bottom: 5px;
-        margin-top: 0;
-    }
-
-    .quote {
-        font-style: italic;
-        color: #ffffff;
-        margin-bottom: 25px;
-        font-size: 1.1rem;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
-    }
-
-    textarea {
-        width: 100%;
-        padding: 15px;
-        border-radius: 20px;
-        border: 1px solid #ccc;
-        margin-top: 15px;
-        resize: none;
-        font-size: 16px;
-        box-sizing: border-box;
-        font-family: inherit;
-    }
-
-    /* Star Rating Styling */
-    .stars {
-        display: flex;
-        flex-direction: row-reverse; /* Crucial for CSS sibling selectors */
-        justify-content: center;
-        margin-top: 20px;
-        gap: 5px;
-    }
-
-    .stars input {
-        display: none;
-    }
-
-    .stars label {
-        font-size: 40px;
-        cursor: pointer;
-        color: #ccc;
-        transition: 0.3s;
-    }
-
-    /* Highlight stars on hover and when checked */
-    .stars input:checked ~ label,
-    .stars label:hover,
-    .stars label:hover ~ label {
-        color: #ffcc00;
-    }
-
-    .submit-btn {
-        width: 100%;
-        margin-top: 25px;
-        padding: 15px;
-        border: none;
-        border-radius: 30px;
-        background: linear-gradient(135deg,#355f4e,#7fb3cb);
-        font-weight: 700;
-        color: white;
-        font-size: 18px;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-
-    .submit-btn:hover {
-        transform: scale(1.03);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-    }
-
-    .message-banner {
-        margin-bottom: 20px;
-        padding: 15px;
-        background: #d4edda;
-        border: 1px solid #c3e6cb;
-        border-radius: 20px;
-        font-weight: 600;
-        color: #155724;
-    }
+    .fb-wrapper { background: linear-gradient(135deg,#9dceec,#d197d2,#481a58); flex: 1; padding: 50px 20px; text-align: center; }
+    .fb-card { background: white; padding: 40px; border-radius: 35px; max-width: 500px; margin: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+    textarea { width: 100%; border-radius: 20px; padding: 15px; margin: 15px 0; border: 1px solid #ddd; resize: none; box-sizing: border-box; }
+    .stars { display: flex; flex-direction: row-reverse; justify-content: center; gap: 5px; font-size: 35px; }
+    .stars input { display: none; }
+    .stars label { color: #ccc; cursor: pointer; transition: 0.3s; }
+    .stars input:checked ~ label, .stars label:hover, .stars label:hover ~ label { color: #ffcc00; }
+    .sub-btn { background: #355f4e; color: white; border: none; padding: 15px; width: 100%; border-radius: 30px; cursor: pointer; font-weight: bold; }
 </style>
 {% endblock %}
 
 {% block content %}
-<div class="feedback-page-wrapper">
-    <h2>We Value Your Feedback ✨</h2>
-    <p class="quote">"{{ quotes|random }}"</p>
-
-    {% if messages %}
-        {% for msg in messages %}
-            <div class="message-banner">{{ msg }}</div>
-        {% endfor %}
-    {% endif %}
-
-    <div class="feedback-card">
+<div class="fb-wrapper">
+    <h2 style="color: white;">We Value Your Feedback ✨</h2>
+    <div class="fb-card">
         <form method="post">
             {% csrf_token %}
-            <textarea name="feedback" rows="6" placeholder="How was your experience today?" required></textarea>
-
+            <textarea name="feedback" rows="5" placeholder="Your message..." required></textarea>
             <div class="stars">
-                <input type="radio" name="rating" id="star5" value="5"><label for="star5" title="Excellent">★</label>
-                <input type="radio" name="rating" id="star4" value="4"><label for="star4" title="Good">★</label>
-                <input type="radio" name="rating" id="star3" value="3"><label for="star3" title="Average">★</label>
-                <input type="radio" name="rating" id="star2" value="2"><label for="star2" title="Poor">★</label>
-                <input type="radio" name="rating" id="star1" value="1"><label for="star1" title="Very Poor">★</label>
+                <input type="radio" name="rating" id="s5" value="5"><label for="s5">★</label>
+                <input type="radio" name="rating" id="s4" value="4"><label for="s4">★</label>
+                <input type="radio" name="rating" id="s3" value="3"><label for="s3">★</label>
+                <input type="radio" name="rating" id="s2" value="2"><label for="s2">★</label>
+                <input type="radio" name="rating" id="s1" value="1"><label for="s1">★</label>
             </div>
-
-            <button type="submit" class="submit-btn">Submit Feedback</button>
+            <button type="submit" class="sub-btn">Submit Feedback</button>
         </form>
-    </div>
-    
-    <div style="margin-top: 30px;">
-        <a href="{% url 'dashboard' %}" style="color: white; text-decoration: none; font-weight: 500;">&larr; Return to Dashboard</a>
     </div>
 </div>
 {% endblock %}
