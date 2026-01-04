@@ -1,71 +1,116 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Token Booked | Quick Desk</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<style>
-body {
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    background: linear-gradient(135deg,#9dceec,#d197d2,#481a58);
-    text-align:center;
-    padding:30px;
-}
-
-h1 {
-    color:#355f4e;
-    font-size:36px;
-    margin-bottom:30px;
-}
-
-.booking-card {
-    display:inline-block;
-    background:#fff;
-    padding:40px 50px;
-    border-radius:25px;
-    box-shadow:0 15px 35px rgba(0,0,0,0.2);
-    text-align:left;
-    max-width:400px;
-}
-
-.booking-card p {
-    font-size:18px;
-    margin:12px 0;
-    color:#333;
-}
-
-.booking-card span {
-    font-weight:600;
-    color:#355f4e;
-}
-
-.validity {
-    margin-top:25px;
-    font-style:italic;
-    color:#555;
-    font-size:16px;
-    text-align:center;
-}
-</style>
-</head>
-<body>
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Dashboard - Quick Desk{% endblock %}
-<h1>✅ Booked Your Token Successfully!</h1>
+{% block title %}Token Confirmation | Quick Desk{% endblock %}
 
-<div class="booking-card">
-    <p>Service Type: <span>{{ section.name }}</span></p>
-    <p>Current Token: <span>{{ section.current_token }}</span></p>
-    <p>Your Token: <span>{{ user_booking.token_number }}</span></p>
-    <p>Estimated Time: <span>{{ expected_time }} mins</span></p>
-    <p>Your Email: <span>{{ user_booking.user.email }}</span></p>
+{% block extra_head %}
+<style>
+    .token-page-wrapper {
+        min-height: 100vh;
+        background: linear-gradient(135deg,#9dceec,#d197d2,#481a58);
+        padding: 40px 20px;
+        margin: -40px; /* Offset base.html main padding */
+        text-align: center;
+    }
+
+    .success-header {
+        color: white;
+        font-size: 32px;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .booking-card {
+        display: inline-block;
+        background: #fff;
+        padding: 40px;
+        border-radius: 25px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        text-align: left;
+        max-width: 450px;
+        width: 100%;
+        box-sizing: border-box;
+        border-top: 8px solid #355f4e; /* Ticket-like accent */
+        position: relative;
+    }
+
+    /* Ticket "punch hole" effect */
+    .booking-card::before, .booking-card::after {
+        content: '';
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        background: #d197d2; /* Matches the gradient background */
+        border-radius: 50%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .booking-card::before { left: -15px; }
+    .booking-card::after { right: -15px; }
+
+    .booking-card p {
+        font-size: 18px;
+        margin: 15px 0;
+        color: #555;
+        border-bottom: 1px dashed #eee;
+        padding-bottom: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .booking-card span {
+        font-weight: 700;
+        color: #355f4e;
+    }
+
+    .token-number {
+        font-size: 48px !important;
+        display: block !important;
+        text-align: center;
+        color: #d6336c !important;
+        margin: 10px 0;
+    }
+
+    .validity {
+        margin-top: 25px;
+        font-weight: 600;
+        color: #ffffff;
+        background: rgba(0,0,0,0.2);
+        display: inline-block;
+        padding: 8px 20px;
+        border-radius: 20px;
+    }
+
+    .btn-home {
+        display: block;
+        margin-top: 30px;
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="token-page-wrapper">
+    <h1 class="success-header">✅ Booking Confirmed!</h1>
+
+    <div class="booking-card">
+        <p>Service: <span>{{ section.name }}</span></p>
+        <p>Email: <span>{{ user_booking.user.email }}</span></p>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <small style="color: #888; text-transform: uppercase;">Your Token Number</small>
+            <span class="token-number">{{ user_booking.token_number }}</span>
+        </div>
+
+        <p>Now Serving: <span>#{{ section.current_token }}</span></p>
+        <p>Est. Wait Time: <span>{{ expected_time }} mins</span></p>
+    </div>
+
+    <br>
+    <p class="validity">⚠️ This token is valid only for today.</p>
+    
+    <a href="{% url 'dashboard' %}" class="btn-home">&larr; Back to Dashboard</a>
 </div>
-
-<p class="validity">⚠️ This token is valid only for today.</p>
-
-</body>
-</html>
+{% endblock %}

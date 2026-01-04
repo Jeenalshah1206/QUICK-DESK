@@ -1,130 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Chatbot | Quick Desk</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+{% extends 'base.html' %}
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg,#9dceec,#d197d2,#481a58);
-            padding: 30px;
-            min-height: 100vh;
-        }
+{% block title %}Chatbot | Quick Desk{% endblock %}
 
-        .chatbox {
-            max-width: 700px;
-            margin: auto;
-            background: #ffffff;
-            border-radius: 35px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
-            display: flex;
-            flex-direction: column;
-        }
+{% block extra_head %}
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-        .chatbox h2 {
-            color: #d6336c;
-            text-align: center;
-            margin-bottom: 10px;
-        }
+<style>
+    .chatbot-page-wrapper {
+        min-height: 100vh;
+        background: linear-gradient(135deg,#9dceec,#d197d2,#481a58);
+        padding: 30px;
+        margin: -40px; /* Counteracts base.html main padding */
+    }
 
-        .chat-container {
-            max-height: 500px;
-            overflow-y: auto;
-            margin-bottom: 20px;
-            padding-right: 10px;
-        }
+    .chatbox {
+        max-width: 700px;
+        margin: auto;
+        background: #ffffff;
+        border-radius: 35px;
+        padding: 30px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        display: flex;
+        flex-direction: column;
+    }
 
-        .chat {
-            background: #c1f0f6;
-            color: #333;
-            padding: 12px 18px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-            max-width: 85%;
-            align-self: flex-start;
-            word-wrap: break-word;
-        }
+    .chatbox h2 {
+        color: #d6336c;
+        text-align: center;
+        margin-bottom: 10px;
+    }
 
-        /* Styling Markdown content inside chat bubbles */
-        .chat p, .user p { margin: 5px 0; }
-        .chat ul, .chat ol { padding-left: 20px; }
+    .chat-container {
+        max-height: 500px;
+        overflow-y: auto;
+        margin-bottom: 20px;
+        padding-right: 10px;
+        display: flex;
+        flex-direction: column;
+    }
 
-        .user {
-            background: #ffdde1;
-            color: #333;
-            padding: 12px 18px;
-            border-radius: 20px;
-            margin-bottom: 10px;
-            max-width: 85%;
-            margin-left: auto;
-            text-align: right;
-        }
+    .chat {
+        background: #c1f0f6;
+        color: #333;
+        padding: 12px 18px;
+        border-radius: 20px;
+        margin-bottom: 10px;
+        max-width: 85%;
+        align-self: flex-start;
+        word-wrap: break-word;
+    }
 
-        input {
-            width: 100%;
-            padding: 14px;
-            box-sizing: border-box;
-            border-radius: 25px;
-            border: 1px solid #ccc;
-            font-size: 16px;
-            outline: none;
-        }
+    .chat p, .user p { margin: 5px 0; }
+    .chat ul, .chat ol { padding-left: 20px; }
 
-        .predefined {
-            margin: 15px 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-        }
+    .user {
+        background: #ffdde1;
+        color: #333;
+        padding: 12px 18px;
+        border-radius: 20px;
+        margin-bottom: 10px;
+        max-width: 85%;
+        margin-left: auto;
+        text-align: right;
+    }
 
-        .predefined button {
-            background: #10318b;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: 0.3s;
-        }
+    .chat-input {
+        width: 100%;
+        padding: 14px;
+        box-sizing: border-box;
+        border-radius: 25px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        outline: none;
+    }
 
-        .predefined button:hover {
-            background: #ff85a2;
-        }
+    .predefined {
+        margin: 15px 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+    }
 
-        /* Custom Scrollbar */
-        .chat-container::-webkit-scrollbar { width: 5px; }
-        .chat-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
-    </style>
-</head>
+    .predefined button {
+        background: #10318b;
+        color: white;
+        border: none;
+        padding: 10px 18px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 14px;
+        transition: 0.3s;
+    }
 
-<body>
-    {% extends 'base.html' %}
+    .predefined button:hover {
+        background: #ff85a2;
+    }
 
-{% block title %}Dashboard - Quick Desk{% endblock %}
+    /* Custom Scrollbar */
+    .chat-container::-webkit-scrollbar { width: 5px; }
+    .chat-container::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+</style>
+{% endblock %}
 
-<div class="chatbox">
-    <h2>🤖 Student Help Chatbot</h2>
-    <p style="text-align:center;">Ask anything related to student services.</p>
+{% block content %}
+<div class="chatbot-page-wrapper">
+    <div class="chatbox">
+        <h2>🤖 Student Help Chatbot</h2>
+        <p style="text-align:center; color: #666;">Ask anything related to student services.</p>
 
-    <div id="message-area" class="chat-container">
-        <div class="chat">Hello! I’m Quick Desk Bot. How can I help you today?</div>
+        <div id="message-area" class="chat-container">
+            <div class="chat">Hello! I’m Quick Desk Bot. How can I help you today?</div>
+        </div>
+
+        <div class="predefined">
+            <button onclick="handleNewMessage('How do I book a digital token?')">Digital Token</button>
+            <button onclick="handleNewMessage('Where can I see latest notices?')">Latest Notices</button>
+            <button onclick="handleNewMessage('How can I submit feedback?')">Submit Feedback</button>
+            <button onclick="handleNewMessage('How to contact staff?')">Contact Staff</button>
+        </div>
+
+        <input type="text" id="user-input" class="chat-input" placeholder="Type your question here..." onkeypress="checkEnter(event)">
     </div>
-
-    <div class="predefined">
-        <button onclick="handleNewMessage('How do I book a digital token?')">Digital Token</button>
-        <button onclick="handleNewMessage('Where can I see latest notices?')">Latest Notices</button>
-        <button onclick="handleNewMessage('How can I submit feedback?')">Submit Feedback</button>
-        <button onclick="handleNewMessage('How to contact staff?')">Contact Staff</button>
-    </div>
-
-    <input type="text" id="user-input" placeholder="Type your question here..." onkeypress="checkEnter(event)">
 </div>
 
 <script>
@@ -134,7 +131,7 @@
         let botMessage = "";
         
         try {
-            // Replace '/gemini-chat/' with the actual URL path in your urls.py
+            // This URL must match the path name in your urls.py
             const response = await fetch(`/gemini-chat/?q=${encodeURIComponent(question)}`);
             
             if (!response.ok) throw new Error("API Connection Failed");
@@ -142,8 +139,7 @@
             const reader = response.body.getReader();
             const decoder = new TextDecoder();
 
-            // Clear the "Thinking..." text once we start getting data
-            botDiv.innerHTML = "";
+            botDiv.innerHTML = ""; // Clear "Thinking..."
 
             while (true) {
                 const { done, value } = await reader.read();
@@ -152,10 +148,10 @@
                 const chunk = decoder.decode(value, { stream: true });
                 botMessage += chunk;
                 
-                // Use marked.parse to render Gemini's Markdown into HTML
+                // Render Markdown to HTML
                 botDiv.innerHTML = marked.parse(botMessage);
                 
-                // Keep the chat scrolled to the bottom
+                // Auto-scroll
                 messageArea.scrollTop = messageArea.scrollHeight;
             }
         } catch (error) {
@@ -170,30 +166,25 @@
             const question = inputField.value.trim();
             if (question) {
                 handleNewMessage(question);
-                inputField.value = ''; // Clear input
+                inputField.value = ''; 
             }
         }
     }
 
     function handleNewMessage(question) {
-        // 1. Add User Bubble
         let userDiv = document.createElement('div');
         userDiv.className = 'user';
         userDiv.innerText = question;
         messageArea.appendChild(userDiv);
 
-        // 2. Add Empty Bot Bubble with "Thinking..."
         let botDiv = document.createElement('div');
         botDiv.className = 'chat';
         botDiv.innerHTML = "<i>Thinking...</i>";
         messageArea.appendChild(botDiv);
 
-        // 3. Scroll to bottom
         messageArea.scrollTop = messageArea.scrollHeight;
 
-        // 4. Start the Gemini Stream
         askGemini(question, botDiv);
     }
 </script>
-</body>
-</html>
+{% endblock %}
