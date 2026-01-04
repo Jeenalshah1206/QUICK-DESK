@@ -20,7 +20,12 @@ from django.http import JsonResponse
 from django.http import StreamingHttpResponse
 
 from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout
 
+def logout_view(request):
+    logout(request)
+    messages.info(request, "You have been logged out.")
+    return redirect('login')
 
 # Home Page
 def home(request):

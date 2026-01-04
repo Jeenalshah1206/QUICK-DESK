@@ -99,7 +99,9 @@ button:hover{
 </head>
 
 <body>
+{% extends 'base.html' %}
 
+{% block title %}Dashboard - Quick Desk{% endblock %}
 <h2>We Value Your Feedback ✨</h2>
 <p class="quote">{{ quotes|random }}</p>
 

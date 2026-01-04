@@ -15,6 +15,6 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('token_booking/<int:section_id>/', views.token_booking, name='token_booking'),
     path('gemini-chat/', views.gemini_chat_view, name='gemini_chat'),
-
+    path('logout/', views.logout_view, name='logout'),
 
 ]
