@@ -5,97 +5,167 @@
 
 {% block extra_head %}
 <style>
-    /* Wrapper to handle the full-screen gradient background */
-    .contact-page-wrapper {
-        min-height: 100vh;
-        background: linear-gradient(135deg,#9dceec,#d197d2,#481a58);
-        padding: 60px 20px;
-        margin: -40px; /* Offset base.html main padding */
-    }
+/* ================= CONTACT PAGE STYLES ================= */
 
+.contact-page-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #9dceec, #d197d2, #481a58);
+    padding: 60px 20px;
+    margin: -40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card */
+.contact-container {
+    max-width: 720px;
+    width: 100%;
+    background: #ffffff;
+    padding: 45px;
+    border-radius: 30px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+    animation: fadeUp 0.7s ease;
+}
+
+/* Heading */
+.contact-heading {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.contact-heading h1 {
+    font-size: 2.3rem;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.contact-heading p {
+    color: #555;
+    font-size: 1rem;
+}
+
+/* Info Section */
+.info-section {
+    margin-top: 30px;
+    border-top: 1px solid #eee;
+    padding-top: 25px;
+}
+
+/* Contact Item */
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px;
+    font-size: 1.05rem;
+    color: #444;
+}
+
+.contact-item span {
+    font-weight: 500;
+}
+
+/* Highlight Icon */
+.contact-icon {
+    font-size: 1.3rem;
+}
+
+/* Description */
+.description-text {
+    margin-top: 25px;
+    background: #f8f9fa;
+    padding: 18px;
+    border-radius: 14px;
+    font-style: italic;
+    color: #555;
+    line-height: 1.7;
+}
+
+/* Back Link */
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    color: #481a58;
+    text-decoration: none;
+    font-weight: bold;
+    transition: opacity 0.3s ease;
+}
+
+.back-link:hover {
+    opacity: 0.7;
+}
+
+/* Animation */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
     .contact-container {
-        max-width: 700px; /* Slimmer for contact info */
-        margin: 0 auto;
-        background: white;
-        padding: 40px;
-        border-radius: 16px;
-        box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-        animation: slideUp 0.6s ease-out;
+        padding: 30px 25px;
     }
 
-    .contact-container h1 {
-        text-align: center;
-        margin-bottom: 10px;
-        color: #333;
+    .contact-heading h1 {
+        font-size: 1.9rem;
     }
-
-    .contact-container p {
-        text-align: center;
-        color: #555;
-        font-size: 16px;
-    }
-
-    .info-section {
-        margin-top: 30px;
-        line-height: 2;
-        border-top: 1px solid #eee;
-        padding-top: 20px;
-    }
-
-    .contact-item {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-
-    .description-text {
-        margin-top: 20px;
-        font-style: italic;
-        background: #f8f9fa;
-        padding: 15px;
-        border-radius: 8px;
-    }
-
-    @keyframes slideUp {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="contact-page-wrapper">
-    <div class="contact-container">
-        <h1>Contact Us 📞</h1>
-        <p>We’re here to help students anytime</p>
 
+    <div class="contact-container">
+
+        <!-- Heading -->
+        <div class="contact-heading">
+            <h1>📞 Contact Quick Desk</h1>
+            <p>We’re always here to support our students</p>
+        </div>
+
+        <!-- Info -->
         <div class="info-section">
+
             <div class="contact-item">
-                <strong>📧 Email:</strong> <span>support@servicecorner.com</span>
+                <span class="contact-icon">📧</span>
+                <strong>Email:</strong>
+                <span>support@servicecorner.com</span>
             </div>
+
             <div class="contact-item">
-                <strong>📱 Phone:</strong> <span>+91 98765 43210</span>
+                <span class="contact-icon">📱</span>
+                <strong>Phone:</strong>
+                <span>+91 98765 43210</span>
             </div>
+
             <div class="contact-item">
-                <strong>📍 Address:</strong> <span>Student Service Center, India</span>
+                <span class="contact-icon">📍</span>
+                <strong>Address:</strong>
+                <span>Student Service Center, India</span>
             </div>
-            
+
             <div class="description-text">
                 <p>
-                    <b>Quick Desk</b> helps students with academic services, 
-                    quick token booking, updates, and chatbot support. 
-                    Reach out if you encounter any technical issues.
+                    <strong>Quick Desk</strong> simplifies student services by offering
+                    quick token booking, real-time updates, chatbot support,
+                    and seamless communication with the administration.
+                    Contact us if you face any technical or service-related issues.
                 </p>
             </div>
+
         </div>
-        
-        <div style="text-align: center; margin-top: 25px;">
-            <a href="{% url 'dashboard' %}" style="color: #481a58; text-decoration: none; font-weight: bold;">
+
+        <!-- Back -->
+        <div style="text-align: center;">
+            <a href="{% url 'dashboard' %}" class="back-link">
                 &larr; Back to Dashboard
             </a>
         </div>
+
     </div>
+
 </div>
 {% endblock %}

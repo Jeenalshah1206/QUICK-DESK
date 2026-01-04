@@ -1,20 +1,126 @@
 {% extends 'base.html' %}
 
+{% block title %}News | Quick Desk{% endblock %}
+
 {% block extra_head %}
 <style>
-    .news-bg { background: linear-gradient(135deg,#9dceec,#d197d2,#481a58); flex: 1; padding: 40px 20px; }
-    .news-container { max-width: 700px; margin: auto; }
-    .news-card { background: #fff; padding: 20px; border-radius: 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+/* ================= NEWS PAGE STYLES ================= */
+
+.news-bg {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #9dceec, #d197d2, #481a58);
+    padding: 50px 20px;
+}
+
+/* Heading */
+.news-heading {
+    text-align: center;
+    color: white;
+    margin-bottom: 35px;
+}
+
+.news-heading h2 {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+}
+
+.news-heading p {
+    opacity: 0.9;
+    font-size: 1rem;
+}
+
+/* Container */
+.news-container {
+    max-width: 800px;
+    margin: auto;
+}
+
+/* News Card */
+.news-card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 22px 25px;
+    border-radius: 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.news-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+}
+
+/* Icon */
+.news-icon {
+    font-size: 1.4rem;
+}
+
+/* Animation */
+.news-card {
+    animation: fadeUp 0.6s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .news-heading h2 {
+        font-size: 1.8rem;
+    }
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="news-bg">
-    <h2 style="text-align: center; color: white;">Latest Announcements 📰</h2>
+
+    <!-- Heading -->
+    <div class="news-heading">
+        <h2>📰 Latest Announcements</h2>
+        <p>Stay updated with important campus information</p>
+    </div>
+
+    <!-- News List -->
     <div class="news-container">
-        <div class="news-card">📌 Semester exams start from 10th June.</div>
-        <div class="news-card">📌 Fee payment QR code available at office.</div>
-        <div class="news-card">📌 Library timings extended till 8 PM.</div>
+
+        <div class="news-card">
+            <span class="news-icon">📌</span>
+            <span>Semester examinations will commence from <strong>10th June</strong>.</span>
+        </div>
+
+        <div class="news-card">
+            <span class="news-icon">💳</span>
+            <span>Fee payment QR code is now available at the administration office.</span>
+        </div>
+
+        <div class="news-card">
+            <span class="news-icon">📚</span>
+            <span>Library timings have been extended till <strong>8:00 PM</strong>.</span>
+        </div>
+
+        <div class="news-card">
+            <span class="news-icon">🧾</span>
+            <span>Bonafide and transcript requests can now be submitted online.</span>
+        </div>
+
+        <div class="news-card">
+            <span class="news-icon">🛠️</span>
+            <span>Maintenance desk will be closed this Saturday for system upgrades.</span>
+        </div>
+
+        <div class="news-card">
+            <span class="news-icon">🎓</span>
+            <span>Final-year students are requested to verify their documents by Friday.</span>
+        </div>
+
     </div>
 </div>
 {% endblock %}

@@ -1,24 +1,147 @@
 {% extends 'base.html' %}
 
+{% block title %}About | Quick Desk{% endblock %}
+
 {% block extra_head %}
 <style>
-    .about-bg { background: linear-gradient(135deg,#ead1dc,#fce5cd,#d9ead3); flex: 1; padding: 60px 20px; }
-    .about-card { 
-        max-width: 800px; margin: auto; background: #fff; padding: 40px; 
-        border-radius: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); text-align: left;
+/* ================= ABOUT PAGE STYLES ================= */
+
+.about-bg {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #ead1dc, #fce5cd, #d9ead3);
+    padding: 60px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+/* Main Card */
+.about-card {
+    max-width: 900px;
+    width: 100%;
+    background: #ffffff;
+    padding: 45px;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.18);
+    animation: fadeIn 1s ease;
+}
+
+/* Headings */
+.about-card h2 {
+    color: #355f4e;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+.about-card h3 {
+    color: #4a7c6c;
+    margin-top: 30px;
+    font-size: 1.3rem;
+}
+
+/* Text */
+.about-card p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-top: 12px;
+    color: #444;
+}
+
+/* List */
+.about-card ul {
+    margin-top: 15px;
+    padding-left: 20px;
+}
+
+.about-card li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+/* Back link */
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    color: #355f4e;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .about-card {
+        padding: 30px 25px;
     }
-    h2 { color: #355f4e; }
+
+    .about-card h2 {
+        font-size: 1.8rem;
+    }
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="about-bg">
     <div class="about-card">
+
         <h2>About Quick Desk 🌿</h2>
-        <p>Quick Desk is a smart digital student service management platform built to simplify everyday campus operations.</p>
+
+        <p>
+            <strong>Quick Desk</strong> is a smart digital student service management platform
+            built to simplify everyday campus operations and improve the overall
+            student experience.
+        </p>
+
+        <p>
+            We understand how frustrating long queues, repeated visits,
+            and unclear service processes can be. Quick Desk eliminates
+            these problems by bringing all essential student services
+            into one easy-to-use digital system.
+        </p>
+
         <h3>🎯 Our Mission</h3>
-        <p>To create a fast, transparent, and hassle-free service environment.</p>
-        <a href="{% url 'dashboard' %}" style="color: #355f4e; font-weight: bold;">&larr; Back to Dashboard</a>
+        <p>
+            To create a fast, transparent, and hassle-free service environment
+            where students can access help without delays and staff can manage
+            requests efficiently.
+        </p>
+
+        <h3>💡 What Quick Desk Offers</h3>
+        <ul>
+            <li>📌 Digital Token System to avoid long queues</li>
+            <li>🤖 Smart chatbot for instant guidance</li>
+            <li>📰 Centralized updates and announcements</li>
+            <li>✍ Feedback system to improve services continuously</li>
+            <li>📞 Easy access to important contacts</li>
+        </ul>
+
+        <h3>🌱 Why Choose Quick Desk?</h3>
+        <p>
+            Quick Desk is designed with both students and staff in mind.
+            It saves time, increases transparency, and ensures that
+            everyone knows their turn, their service status, and
+            the expected waiting time.
+        </p>
+
+        <p>
+            Our vision is to make campus services smarter, faster,
+            and more student-friendly — one click at a time.
+        </p>
+
+        <a href="{% url 'dashboard' %}" class="back-link">
+            &larr; Back to Dashboard
+        </a>
+
     </div>
 </div>
 {% endblock %}

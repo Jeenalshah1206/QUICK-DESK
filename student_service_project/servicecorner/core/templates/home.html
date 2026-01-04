@@ -1,5 +1,4 @@
- {% load static %}
-
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-/* ---------- GLOBAL ---------- */
+/* ========== GLOBAL ========== */
 *{
     margin:0;
     padding:0;
@@ -17,97 +16,104 @@
 }
 
 body{
-    background:linear-gradient(135deg,#9dceec,#d197d2,#481a58);
     min-height:100vh;
-    color:#3f3f3f;
+    background:linear-gradient(135deg,#9dceec,#d197d2,#481a58);
+    color:#333;
 }
 
-/* ---------- HEADER ---------- */
+/* ========== HEADER ========== */
 header{
-    padding:25px;
+    padding:40px 20px 20px;
     text-align:center;
 }
 
 header h1{
-    font-size:42px;
-    color:#355f4e;
+    font-size:44px;
+    font-weight:800;
+    background:linear-gradient(90deg,#355f4e,#4a7c6c);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
     letter-spacing:1px;
 }
 
 header p{
     margin-top:10px;
     font-size:18px;
+    color:#444;
 }
 
-/* ---------- NAV ---------- */
+/* ========== NAV ========== */
 nav{
-    margin-top:20px;
+    margin-top:25px;
 }
 
 nav a{
     text-decoration:none;
-    margin:0 10px;
-    padding:10px 22px;
-    background:#efeded;
+    margin:0 8px;
+    padding:12px 26px;
+    background:rgba(255,255,255,0.9);
     border-radius:30px;
     color:#333;
-    font-weight:500;
-    transition:0.3s;
+    font-weight:600;
+    transition:all 0.3s ease;
+    box-shadow:0 8px 18px rgba(0,0,0,0.15);
 }
 
 nav a:hover{
     background:#ffe599;
-    transform:scale(1.1);
+    transform:translateY(-3px);
 }
 
-/* ---------- HERO ---------- */
+/* ========== HERO ========== */
 .hero{
     display:flex;
     flex-direction:column;
     align-items:center;
-    padding:60px 20px;
     text-align:center;
+    padding:70px 20px 60px;
 }
 
 .hero h2{
-    font-size:36px;
+    font-size:38px;
     color:#355f4e;
+    max-width:900px;
     animation:fadeIn 1s ease;
 }
 
 .hero p{
-    max-width:700px;
+    max-width:720px;
     font-size:18px;
     margin-top:20px;
-    line-height:1.7;
+    line-height:1.8;
+    color:#444;
 }
 
-/* ---------- BUTTON ---------- */
+/* ========== CTA BUTTON ========== */
 .hero button{
-    margin-top:35px;
-    padding:20px 65px;
+    margin-top:40px;
+    padding:20px 70px;
     font-size:20px;
     border:none;
-    border-radius:40px;
+    border-radius:50px;
     cursor:pointer;
-    font-weight:700;
+    font-weight:800;
     color:#333;
     background:linear-gradient(135deg,#ffe599,#f4cccc,#fce5cd);
-    box-shadow:0 15px 35px rgba(0,0,0,0.2);
-    transition:0.4s;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+    transition:all 0.4s ease;
 }
 
 .hero button:hover{
     transform:translateY(-6px) scale(1.08);
-    box-shadow:0 25px 45px rgba(0,0,0,0.3);
+    box-shadow:0 30px 55px rgba(0,0,0,0.35);
 }
 
-/* ---------- FEATURES ---------- */
+/* ========== FEATURES ========== */
 .features{
-    padding:60px 20px;
+    padding:70px 20px;
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-    gap:25px;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:30px;
     max-width:1100px;
     margin:auto;
 }
@@ -115,46 +121,50 @@ nav a:hover{
 .feature-card{
     background:#ffffff;
     border-radius:30px;
-    padding:35px;
+    padding:40px 30px;
     text-align:center;
-    box-shadow:0 12px 30px rgba(0,0,0,0.15);
-    transition:0.4s;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+    transition:all 0.4s ease;
 }
 
 .feature-card:hover{
-    transform:translateY(-10px);
+    transform:translateY(-12px);
     background:#fce5cd;
 }
 
 .feature-card h3{
     margin-top:15px;
     color:#355f4e;
+    font-size:20px;
 }
 
 .feature-card p{
     margin-top:12px;
     font-size:15px;
+    line-height:1.6;
+    color:#444;
 }
 
-/* ---------- FOOTER ---------- */
+/* ========== FOOTER ========== */
 footer{
-    margin-top:40px;
-    padding:20px;
+    padding:25px 20px;
     text-align:center;
-    background:#e8e8e8;
+    background:rgba(255,255,255,0.85);
     font-size:14px;
+    color:#444;
 }
 
-/* ---------- ANIMATION ---------- */
+/* ========== ANIMATION ========== */
 @keyframes fadeIn{
-    from{opacity:0;transform:translateY(20px)}
+    from{opacity:0;transform:translateY(25px)}
     to{opacity:1;transform:translateY(0)}
 }
 
-/* ---------- RESPONSIVE ---------- */
+/* ========== RESPONSIVE ========== */
 @media(max-width:600px){
     header h1{font-size:32px}
     .hero h2{font-size:28px}
+    .hero button{padding:18px 55px;font-size:18px}
 }
 </style>
 </head>
@@ -176,17 +186,18 @@ footer{
 <section class="hero">
     <h2>We’re Here to Make Your Campus Life Easier ✨</h2>
     <p>
-        Skip long queues, book service tokens, get instant answers, 
+        Skip long queues, book service tokens, get instant answers,
         read official updates, and communicate effortlessly with your institution —
         all from one powerful platform.
     </p>
-    <!-- Fixed button: use single quotes inside onclick for Django template -->
+
     <button onclick="window.location.href='{% url 'register' %}'">
-      Enter Quick Desk 🚀
+        Enter Quick Desk 🚀
     </button>
 </section>
 
 <section class="features">
+
     <div class="feature-card">
         <h3>🎟 Digital Token</h3>
         <p>Book your service token online and avoid waiting in long queues.</p>
@@ -206,6 +217,7 @@ footer{
         <h3>✍ Feedback System</h3>
         <p>Share your feedback to help us improve student services.</p>
     </div>
+
 </section>
 
 <footer>
@@ -213,4 +225,4 @@ footer{
 </footer>
 
 </body>
-</html> 
+</html>

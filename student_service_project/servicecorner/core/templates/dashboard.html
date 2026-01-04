@@ -5,42 +5,138 @@
 
 {% block extra_head %}
 <style>
-    /* Scope styles to this page only */
-    .dashboard-wrapper {
-        flex: 1;
-        background: linear-gradient(135deg,#9dceec,#d197d2,#481a58);
-        padding: 40px;
-        color: white;
+/* ================= DASHBOARD STYLES ================= */
+
+.dashboard-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #9dceec, #d197d2, #481a58);
+    padding: 40px 20px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Heading */
+.dashboard-wrapper h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.user-info {
+    text-align: center;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+/* Grid Layout */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    width: 100%;
+    margin: 30px auto;
+}
+
+/* Bottom Cards */
+.bottom-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    max-width: 750px;
+    width: 100%;
+    margin: 20px auto;
+}
+
+/* Card Design */
+.card {
+    background: rgba(255, 255, 255, 0.92);
+    padding: 35px 25px;
+    border-radius: 28px;
+    text-align: center;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 180px;
+}
+
+/* Hover Effect */
+.card:hover {
+    transform: translateY(-12px) scale(1.04);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+/* Card Text */
+.card h3 {
+    font-size: 1.4rem;
+    margin-bottom: 12px;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Mobile Optimization */
+@media (max-width: 600px) {
+    .dashboard-wrapper h2 {
+        font-size: 1.7rem;
     }
-    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1000px; margin: auto; }
-    .card { 
-        background: linear-gradient(135deg, #debcc8, #b9d4e7); padding: 30px; 
-        border-radius: 30px; text-align: center; color: #333; cursor: pointer; transition: 0.4s;
+
+    .card {
+        min-height: 160px;
     }
-    .card:hover { transform: translateY(-10px); }
-    .bottom-row { display: flex; justify-content: center; gap: 30px; margin-top: 30px; }
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="dashboard-wrapper">
-    <h2 style="text-align: center;">Welcome to Quick Desk 👩🏻‍💻</h2>
-    
+
+    <h2>Welcome to Quick Desk 👩🏻‍💻</h2>
+
     {% if user.is_authenticated %}
-    <div style="text-align: center; margin-bottom: 20px;">
-        <p>Logged in as: {{ user.email }}</p>
+    <div class="user-info">
+        <p>Logged in as: <strong>{{ user.email }}</strong></p>
     </div>
     {% endif %}
 
+    <!-- Top Grid -->
     <div class="grid">
-        <div class="card" onclick="location.href='{% url 'news' %}'"><h3>📰 News</h3><p>Latest announcements.</p></div>
-        <div class="card" onclick="location.href='{% url 'contact' %}'"><h3>📞 Contacts</h3><p>Faculty details.</p></div>
-        <div class="card" onclick="location.href='{% url 'chatbot' %}'"><h3>🤖 Chatbot</h3><p>AI Support.</p></div>
+        <div class="card" onclick="location.href='{% url 'news' %}'">
+            <h3>📰 News</h3>
+            <p>Latest announcements and updates.</p>
+        </div>
+
+        <div class="card" onclick="location.href='{% url 'contact' %}'">
+            <h3>📞 Contacts</h3>
+            <p>Faculty and department details.</p>
+        </div>
+
+        <div class="card" onclick="location.href='{% url 'chatbot' %}'">
+            <h3>🤖 Chatbot</h3>
+            <p>AI-powered help & support.</p>
+        </div>
     </div>
 
+    <!-- Bottom Grid -->
     <div class="bottom-row">
-        <div class="card" onclick="location.href='{% url 'token' %}'"><h3>🎟 Digital Token</h3><p>Book online.</p></div>
-        <div class="card" onclick="location.href='{% url 'feedback' %}'"><h3>✍ Feedback</h3><p>Share thoughts.</p></div>
+        <div class="card" onclick="location.href='{% url 'token' %}'">
+            <h3>🎟 Digital Token</h3>
+            <p>Book your token online.</p>
+        </div>
+
+        <div class="card" onclick="location.href='{% url 'feedback' %}'">
+            <h3>✍ Feedback</h3>
+            <p>Share your thoughts with us.</p>
+        </div>
     </div>
+
 </div>
 {% endblock %}

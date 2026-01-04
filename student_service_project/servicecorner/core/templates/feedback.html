@@ -1,25 +1,155 @@
 {% extends 'base.html' %}
 
+{% block title %}Feedback | Quick Desk{% endblock %}
+
 {% block extra_head %}
 <style>
-    .fb-wrapper { background: linear-gradient(135deg,#9dceec,#d197d2,#481a58); flex: 1; padding: 50px 20px; text-align: center; }
-    .fb-card { background: white; padding: 40px; border-radius: 35px; max-width: 500px; margin: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
-    textarea { width: 100%; border-radius: 20px; padding: 15px; margin: 15px 0; border: 1px solid #ddd; resize: none; box-sizing: border-box; }
-    .stars { display: flex; flex-direction: row-reverse; justify-content: center; gap: 5px; font-size: 35px; }
-    .stars input { display: none; }
-    .stars label { color: #ccc; cursor: pointer; transition: 0.3s; }
-    .stars input:checked ~ label, .stars label:hover, .stars label:hover ~ label { color: #ffcc00; }
-    .sub-btn { background: #355f4e; color: white; border: none; padding: 15px; width: 100%; border-radius: 30px; cursor: pointer; font-weight: bold; }
+/* ================= FEEDBACK PAGE STYLES ================= */
+
+.fb-wrapper {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #9dceec, #d197d2, #481a58);
+    padding: 60px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Heading */
+.fb-heading {
+    text-align: center;
+    color: white;
+    margin-bottom: 30px;
+}
+
+.fb-heading h2 {
+    font-size: 2.2rem;
+    margin-bottom: 6px;
+}
+
+.fb-heading p {
+    opacity: 0.9;
+}
+
+/* Card */
+.fb-card {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 35px;
+    max-width: 520px;
+    width: 100%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    animation: fadeIn 0.8s ease;
+}
+
+/* Textarea */
+.fb-card textarea {
+    width: 100%;
+    border-radius: 22px;
+    padding: 16px;
+    margin: 18px 0;
+    border: 1px solid #ddd;
+    resize: none;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border 0.3s, box-shadow 0.3s;
+}
+
+.fb-card textarea:focus {
+    outline: none;
+    border-color: #9d4edd;
+    box-shadow: 0 0 0 3px rgba(157,78,221,0.15);
+}
+
+/* Star Rating */
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 8px;
+    font-size: 38px;
+    margin-bottom: 25px;
+}
+
+.stars input {
+    display: none;
+}
+
+.stars label {
+    color: #ccc;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.stars label:hover {
+    transform: scale(1.2);
+}
+
+.stars input:checked ~ label,
+.stars label:hover,
+.stars label:hover ~ label {
+    color: #ffcc00;
+}
+
+/* Submit Button */
+.sub-btn {
+    background: linear-gradient(135deg, #355f4e, #4a7c6c);
+    color: white;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sub-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(25px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .fb-card {
+        padding: 30px 25px;
+    }
+
+    .fb-heading h2 {
+        font-size: 1.8rem;
+    }
+}
 </style>
 {% endblock %}
 
 {% block content %}
 <div class="fb-wrapper">
-    <h2 style="color: white;">We Value Your Feedback ✨</h2>
+
+    <!-- Heading -->
+    <div class="fb-heading">
+        <h2>✨ We Value Your Feedback</h2>
+        <p>Your thoughts help us improve Quick Desk</p>
+    </div>
+
+    <!-- Feedback Card -->
     <div class="fb-card">
         <form method="post">
             {% csrf_token %}
-            <textarea name="feedback" rows="5" placeholder="Your message..." required></textarea>
+
+            <textarea
+                name="feedback"
+                rows="5"
+                placeholder="Share your experience with Quick Desk..."
+                required
+            ></textarea>
+
             <div class="stars">
                 <input type="radio" name="rating" id="s5" value="5"><label for="s5">★</label>
                 <input type="radio" name="rating" id="s4" value="4"><label for="s4">★</label>
@@ -27,8 +157,12 @@
                 <input type="radio" name="rating" id="s2" value="2"><label for="s2">★</label>
                 <input type="radio" name="rating" id="s1" value="1"><label for="s1">★</label>
             </div>
-            <button type="submit" class="sub-btn">Submit Feedback</button>
+
+            <button type="submit" class="sub-btn">
+                Submit Feedback
+            </button>
         </form>
     </div>
+
 </div>
 {% endblock %}
